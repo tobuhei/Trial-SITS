@@ -1,4 +1,4 @@
-./pic/
-./data/
-./paper/
+/img
+/data
+/paper
 src/__pycache__
