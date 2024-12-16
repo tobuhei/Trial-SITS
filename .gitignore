@@ -1,4 +1,11 @@
 /img
 /data
 /paper
+.ipynb_checkpoints
 src/__pycache__
+src/test_code/__pycache__
+src/test_code/.ipynb_checkpoints
+src/util/__pycache__
+src/util/.ipynb_checkpoints
+src/aws/__pycache__
+src/aws/.ipynb_checkpoints
