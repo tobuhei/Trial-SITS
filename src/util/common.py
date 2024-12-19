@@ -86,3 +86,23 @@ def s3_upload(s3_client, s3_bucket, output_path, data, meta):
         dst.write(data.astype(rio.float32), 1)
     s3_client.upload_file(local_file_path, s3_bucket, output_path)
     os.remove(local_file_path)
+
+def get_mask(s3_client, s3_bucket, prefix):
+    # ファイル一覧を入手
+    file_list = get_filelist(s3_client, s3_bucket, prefix)
+    
+    # 条件に一致するファイルを抽出
+    files = [path for path in file_list if "_B03" in path]
+    
+    mask = rio.open('s3://' + s3_bucket + '/' + files[1])
+    meta = mask.meta.copy()
+    meta.update({
+        "count": 1,  # 出力バンド数
+        "dtype": "float32",
+    })
+    
+    mask = mask.read(1).astype(np.float16)
+    mask = (mask == 0)
+
+    
+    return mask
