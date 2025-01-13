@@ -3,17 +3,17 @@ name: Python Pipeline
 on:
   push:
     branches:
-      - 'feature*'
-      - 'develop'
       - 'main'
+      - 'develop'
       - 'release*'
+      - 'feature*'
       - 'hotfix*'
   pull_request:
     branches:
-      - 'feature*'
-      - 'develop'
       - 'main'
+      - 'develop'
       - 'release*'
+      - 'feature*'
       - 'hotfix*'
 
 jobs:
@@ -45,7 +45,7 @@ jobs:
         echo "Running pydocstyle..."
         pydocstyle .
 
-    # - name: Run unit tests
-    #   run: |
-    #     echo "Running unit tests..."
-    #     pytest --maxfail=5 --disable-warnings
+    - name: Run unit tests
+      run: |
+        echo "Running unit tests..."
+        pytest --maxfail=5 --disable-warnings
