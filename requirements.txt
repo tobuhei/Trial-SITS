@@ -3,5 +3,4 @@ matplotlib
 pandas
 rasterio
 exposure
-Transformer
 re
