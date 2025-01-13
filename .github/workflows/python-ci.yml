@@ -1,0 +1,46 @@
+name: Python CI
+
+on:
+  push:
+    branches:
+      - '**'  # すべてのブランチで実行
+  pull_request:
+    branches:
+      - '**'  # プルリクエストでも実行
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        python-version: [3.8, 3.9, 3.10]  # 複数のPythonバージョンで実行
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pylint pydocstyle pytest
+
+    - name: Run Pylint
+      run: |
+        echo "Running Pylint..."
+        pylint $(find . -type f -name "*.py")
+
+    - name: Run pydocstyle
+      run: |
+        echo "Running pydocstyle..."
+        pydocstyle .
+
+    - name: Run unit tests
+      run: |
+        echo "Running unit tests..."
+        pytest --maxfail=5 --disable-warnings
