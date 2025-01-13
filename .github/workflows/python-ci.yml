@@ -3,10 +3,18 @@ name: Python Pipeline
 on:
   push:
     branches:
-      - '**'  # すべてのブランチで実行
+      - 'feature*'
+      - 'develop'
+      - 'main'
+      - 'release*'
+      - 'hotfix*'
   pull_request:
     branches:
-      - '**'  # プルリクエストでも実行
+      - 'feature*'
+      - 'develop'
+      - 'main'
+      - 'release*'
+      - 'hotfix*'
 
 jobs:
   lint-and-test:

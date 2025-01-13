@@ -1,12 +1,7 @@
 [MESSAGES CONTROL]
-# 特定のチェックを無効にする
+# C0301: 行の長さが100文字以下
 disable=C0301
 
 [BASIC]
 # インデントにタブを使用しない
 indent-string='    '
-indent-after-paren=4
-
-[FORMAT]
-# 行の長さを最大80文字に制限
-max-line-length = 80
