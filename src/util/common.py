@@ -1,15 +1,16 @@
-from skimage import exposure
+""" common.py
+"""
+
 import numpy as np
 import matplotlib.pyplot as plt
 import numpy.ma as ma
-import boto3
 import rasterio as rio
 import matplotlib.pyplot as plt
 import numpy as np
-from pyproj import Transformer
-import datetime
 import re
 import os
+from skimage import exposure
+from pyproj import Transformer
 
 
 def rgb_plot(rgb_data, title=None):
@@ -71,7 +72,7 @@ def get_filelist(s3_client, s3_bucket, prefix):
 def extract_date(file_path):
     # ファイル名を取得
     file_name = file_path.split("/")[-1]
-    
+
     # 正規表現で日付を抽出 (YYYYMMDD の形式を検索)
     match = re.search(r"_(\d{8})T", file_name)
     if match:
@@ -90,19 +91,17 @@ def s3_upload(s3_client, s3_bucket, output_path, data, meta):
 def get_mask(s3_client, s3_bucket, prefix):
     # ファイル一覧を入手
     file_list = get_filelist(s3_client, s3_bucket, prefix)
-    
+
     # 条件に一致するファイルを抽出
     files = [path for path in file_list if "_B03" in path]
-    
+
     mask = rio.open('s3://' + s3_bucket + '/' + files[1])
     meta = mask.meta.copy()
     meta.update({
         "count": 1,  # 出力バンド数
         "dtype": "float32",
     })
-    
-    mask = mask.read(1).astype(np.float16)
-    mask = (mask == 0)
 
-    
+    mask = mask.read(1).astype(np.float16)
+
     return mask
