@@ -5,8 +5,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import numpy.ma as ma
 import rasterio as rio
-import matplotlib.pyplot as plt
-import numpy as np
 import re
 import os
 from skimage import exposure
