@@ -1,7 +1,9 @@
 [MESSAGES CONTROL]
-# C0301: 行の長さが100文字以下
-disable=C0301
+#disable=C0301
 
 [BASIC]
 # インデントにタブを使用しない
 indent-string='    '
+
+[FORMAT]
+max-line-length=120
